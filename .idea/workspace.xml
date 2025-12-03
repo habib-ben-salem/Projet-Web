@@ -4,13 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2bd0d3a4-1878-4650-abc7-9e7ed44fb07c" name="Changes" comment="habib a ajouter son fichier config" />
+    <list default="true" id="2bd0d3a4-1878-4650-abc7-9e7ed44fb07c" name="Changes" comment="habib a ajouter son fichier" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="habib" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitLabMergeRequestFiltersHistory"><![CDATA[{
@@ -42,7 +60,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "habib",
     "junie.onboarding.icon.badge.shown": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -67,7 +85,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1764771498056</updated>
-      <workItem from="1764771499061" duration="647000" />
+      <workItem from="1764771499061" duration="958000" />
     </task>
     <task id="LOCAL-00001" summary="habib a ajouter son fichier config">
       <option name="closed" value="true" />
@@ -77,14 +95,34 @@
       <option name="project" value="LOCAL" />
       <updated>1764771924454</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="habib a ajouter son fichier">
+      <option name="closed" value="true" />
+      <created>1764772469430</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1764772469430</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="habib a ajouter son fichier config" />
-    <option name="LAST_COMMIT_MESSAGE" value="habib a ajouter son fichier config" />
+    <MESSAGE value="habib a ajouter son fichier" />
+    <option name="LAST_COMMIT_MESSAGE" value="habib a ajouter son fichier" />
   </component>
 </project>
