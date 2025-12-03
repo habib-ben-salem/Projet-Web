@@ -1,10 +1,22 @@
-1. Se LOG
+1. Se LOG + register
 2. Page d'accueil
 3. Page d'interaction entre user (Peu etre page d'accueil adapter ?)
 4. Page spécifique au thème (comparaison de voiture/jeu/note de cours par exemple ...)
 5. Page d'alimentation de la base de données (ajouter voiture/jeu/cours ...)
 6. page de consultation de la base : commenter noter ...
 
+Format :
+ -> Vente de voiture en ligne (ou forum de discution/comparaison de models de vehicules).
+
+
+Catalogue :
+ - consulter la base de donnée des voiture;
+ - pouvoir basculer ficalement sur un page ; ou mettre une partie de comaraison entre deux models;
+
+Register :
+ - id demandé
+ - mdp + confirmation
+ - mail
 
 Peut etre type forum ? adapter en consequense
 
