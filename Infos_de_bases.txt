@@ -1,0 +1,12 @@
+1. Se LOG
+2. Page d'accueil
+3. Page d'interaction entre user (Peu etre page d'accueil adapter ?)
+4. Page spécifique au thème (comparaison de voiture/jeu/note de cours par exemple ...)
+5. Page d'alimentation de la base de données (ajouter voiture/jeu/cours ...)
+6. page de consultation de la base : commenter noter ...
+
+
+Peut etre type forum ? adapter en consequense
+
+Créer une base de donnée à la main (BONUS en dehors du projet : le préciser dans le rapport)
+ -> Ficher CSV (site web reconnu : kaggle)
