@@ -1,3 +1,5 @@
+Lien conversation gemini: https://gemini.google.com/share/ff65929358ae
+
 1. Se LOG
 2. Page d'accueil
 3. Page d'interaction entre user (Peu etre page d'accueil adapter ?)
