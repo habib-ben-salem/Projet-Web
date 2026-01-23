@@ -1,0 +1,26 @@
+services:
+  www:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+    environment:
+      XDEBUG_MODE: debug
+      XDEBUG_CONFIG: client_host=host.docker.internal client_port=9003 start_with_request=yes
+  db:
+    image: mysql:latest # service for mySQL
+    environment:
+      - MYSQL_DATABASE=appinfo # database for our php test
+      - MYSQL_USER=php_docker # user name for the DB
+      - MYSQL_PASSWORD=password # not a great password ...
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1 # set to true to have users without passed
+    volumes:
+      - "./db:/docker-entrypoint-initdb.d" #sync persistent sql files with container because Aiiiii Docker does not save the DB
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin # have a service for an interface of the DB
+    ports:
+      - 8001:80 # define a port to be able to see the BD
+    environment:
+      - PMA_POST=db # which DB service to connect to
+      - PMA_PORT=3306 # mySQL uses this po
