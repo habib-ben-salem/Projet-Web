@@ -10,6 +10,8 @@ services:
       XDEBUG_CONFIG: client_host=host.docker.internal client_port=9003 start_with_request=yes
   db:
     image: mysql:latest # service for mySQL
+    ports:
+      - "3306:3306"
     environment:
       - MYSQL_DATABASE=appinfo # database for our php test
       - MYSQL_USER=php_docker # user name for the DB
