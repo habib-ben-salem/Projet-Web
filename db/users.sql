@@ -2,6 +2,17 @@
 CREATE DATABASE IF NOT EXISTS users_accounts;
 USE users_accounts;
 
+-- Donner les permissions à php_docker sur cette base
+GRANT ALL PRIVILEGES ON users_accounts.* TO 'php_docker'@'%';
+FLUSH PRIVILEGES;
+
+-- Table des administrateurs (doit être créée en premier car la table users la référence)
+CREATE TABLE IF NOT EXISTS administrators (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    role ENUM('user' , 'admin' , 'super_admin') DEFAULT 'user',
+    permissions JSON
+);
+
 -- Table des utilisateurs (Utilisateurs simples)
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -12,23 +23,11 @@ CREATE TABLE IF NOT EXISTS users (
     phone VARCHAR(20),
     is_active BOOLEAN DEFAULT TRUE,
     account_level INT NOT NULL,
-    --created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    --updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    --INDEX idx_email (email),
-    --INDEX idx_is_active (is_active)
-    FOREIGN KEY (account_level) REFERENCES administrators(id) ON DELETE CASCADE,
-);
-
--- Table des administrateurs (étend la table users)
-CREATE TABLE IF NOT EXISTS administrators (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    role ENUM('user' , 'admin' , 'super_admin') DEFAULT 'user',
-    permissions JSON,
-    --INDEX idx_role (role)
+    FOREIGN KEY (account_level) REFERENCES administrators(id) ON DELETE CASCADE
 );
 
 -- Ajout des rôles possibles
-INSERT INTO administrators (role,permissions) VALUES
-('user',{"can_manage_users": false,"can_manage_content": false,"can_access_admin_pages":false}),
-('admin',{"can_manage_users": false,"can_manage_content": True,"can_access_admin_pages":True}),
-('super_admin',{"can_manage_users": True,"can_manage_content": True,"can_access_admin_pages":True})
+INSERT INTO administrators (role, permissions) VALUES
+('user', '{"can_manage_users": false, "can_manage_content": false, "can_access_admin_pages": false}'),
+('admin', '{"can_manage_users": false, "can_manage_content": true, "can_access_admin_pages": true}'),
+('super_admin', '{"can_manage_users": true, "can_manage_content": true, "can_access_admin_pages": true}');
