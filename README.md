@@ -1,93 +1,169 @@
-# Dev Web Mobile
+# 🚗 Mini Catalogue de Voitures
 
+Projet universitaire simple pour débutants : un mini catalogue de voitures avec authentification.
 
+## 📋 Stack Technique
 
-## Getting started
+- **Frontend** : HTML + Bootstrap 5
+- **Backend** : PHP 8.2
+- **Base de données** : MySQL
+- **Conteneurisation** : Docker (PHP + MySQL + phpMyAdmin)
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## 🎯 Fonctionnalités
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+### Accès Public
+- ✅ Afficher la liste des voitures
+- ✅ Voir le détail d'une voiture
 
-## Add your files
+### Accès Authentifié
+- ✅ Ajouter une voiture
+- ✅ Supprimer une voiture
+- ✅ Authentification simple avec sessions PHP
 
-* [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+## 🗄️ Structure de la Base de Données
+
+### Table `users`
+```sql
+- id (INT, PRIMARY KEY, AUTO_INCREMENT)
+- email (VARCHAR(255), UNIQUE)
+- password_hash (VARCHAR(255))
+- created_at (TIMESTAMP)
+```
+
+### Table `vehicles`
+```sql
+- id (INT, PRIMARY KEY, AUTO_INCREMENT)
+- brand (VARCHAR(100))
+- model (VARCHAR(100))
+- year (INT)
+- price (DECIMAL(10,2))
+- image_path (VARCHAR(255), NULLABLE)
+- description (TEXT, NULLABLE)
+- created_at (TIMESTAMP)
+```
+
+## 📁 Structure des Fichiers
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/app3-iim/dev-web-mobile.git
-git branch -M main
-git push -uf origin main
+dev-web-mobile/
+├── docker-compose.yml          # Configuration Docker
+├── Dockerfile                  # Image PHP avec extensions PDO
+├── README.md                   # Ce fichier
+├── db/
+│   ├── database.sql           # Script de création de la BDD
+│   └── users.sql              # (Non utilisé)
+└── src/                       # Code source PHP
+    ├── config.php             # Configuration BDD + helpers
+    ├── index.php              # Liste des voitures
+    ├── detail.php             # Détail d'une voiture
+    ├── add.php                # Ajouter une voiture (authentifié)
+    ├── delete.php             # Supprimer une voiture (authentifié)
+    ├── login.php              # Page de connexion
+    └── logout.php             # Déconnexion
 ```
 
-## Integrate with your tools
+## 🚀 Installation et Démarrage
 
-* [Set up project integrations](https://gitlab.com/app3-iim/dev-web-mobile/-/settings/integrations)
+### Prérequis
+- Docker Desktop installé et démarré
 
-## Collaborate with your team
+### Étapes
 
-* [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+1. **Cloner ou télécharger le projet**
+   ```bash
+   cd dev-web-mobile
+   ```
 
-## Test and Deploy
+2. **Lancer les conteneurs Docker**
+   ```bash
+   docker-compose up -d
+   ```
+   
+   Cette commande va :
+   - Construire l'image PHP avec les extensions PDO/MySQL
+   - Démarrer le serveur web Apache sur le port 8080
+   - Démarrer MySQL sur le port 3306
+   - Démarrer phpMyAdmin sur le port 8001
+   - Créer automatiquement la base de données et les tables
 
-Use the built-in continuous integration in GitLab.
+3. **Accéder à l'application**
+   - **Site web** : http://localhost:8080
+   - **phpMyAdmin** : http://localhost:8001
+     - Serveur : `db`
+     - Utilisateur : `php_docker`
+     - Mot de passe : `password`
 
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+## 👤 Compte de Test
 
-***
+Un utilisateur de test est créé automatiquement :
 
-# Editing this README
+- **Email** : `admin@test.com`
+- **Mot de passe** : `admin123`
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+> Le mot de passe est haché avec `password_hash()` dans la base de données.
 
-## Suggestions for a good README
+## 🛠️ Utilisation
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+### Navigation Public
+1. Visitez http://localhost:8080
+2. Parcourez le catalogue des voitures
+3. Cliquez sur "Voir les détails" pour accéder aux informations complètes
 
-## Name
-Choose a self-explaining name for your project.
+### Ajout/Suppression de Voitures
+1. Cliquez sur "Connexion" dans le menu
+2. Utilisez le compte de test ci-dessus
+3. Une fois connecté :
+   - Cliquez sur "➕ Ajouter une voiture" pour ajouter un véhicule
+   - Sur la page de détail, cliquez sur "🗑️ Supprimer" pour supprimer
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+## 🔐 Sécurité Implémentée
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+- ✅ **PDO avec requêtes préparées** : Protection contre les injections SQL
+- ✅ **password_hash() / password_verify()** : Hashage sécurisé des mots de passe
+- ✅ **Sessions PHP** : Gestion de l'authentification
+- ✅ **htmlspecialchars()** : Protection XSS (escape())
+- ✅ **Validation des données** : Vérification des inputs côté serveur
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+## 📝 Exemple CRUD
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+| Opération | Fichier | Authentification |
+|-----------|---------|------------------|
+| **C**reate | `add.php` | ✅ Requis |
+| **R**ead (Liste) | `index.php` | ❌ Public |
+| **R**ead (Détail) | `detail.php` | ❌ Public |
+| **U**pdate | *(Non implémenté)* | - |
+| **D**elete | `delete.php` | ✅ Requis |
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+## 🛑 Arrêter le Projet
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+```bash
+docker-compose down
+```
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+Pour supprimer également les volumes (base de données) :
+```bash
+docker-compose down -v
+```
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+## 📚 Technologies Utilisées
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+- **PHP 8.2** avec extensions : PDO, pdo_mysql, mysqli, xdebug
+- **MySQL latest**
+- **Bootstrap 5.3** (CDN)
+- **Apache** (inclus dans l'image php:8.2-apache)
+- **Docker & Docker Compose**
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+## 🎓 Points Pédagogiques
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+Ce projet illustre :
+- Architecture MVC simple (sans framework)
+- Connexion PDO à MySQL
+- Sécurité de base (sessions, hachage, requêtes préparées)
+- CRUD minimal
+- Utilisation de Docker pour le développement
+- Bootstrap pour un design responsive
 
-## License
-For open source projects, say how it is licensed.
+---
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+**Projet Universitaire 2026** - Mini Catalogue de Voitures
+

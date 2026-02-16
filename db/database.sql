@@ -1,96 +1,42 @@
 -- Création de la base de données
-CREATE DATABASE IF NOT EXISTS car_showroom;
-USE car_showroom;
+CREATE DATABASE IF NOT EXISTS appinfo;
 
--- Table des Marques (Brands)
-CREATE TABLE IF NOT EXISTS brands (
+-- Donner les permissions à l'utilisateur php_docker
+GRANT ALL PRIVILEGES ON appinfo.* TO 'php_docker'@'%';
+FLUSH PRIVILEGES;
+
+USE appinfo;
+
+-- Table des utilisateurs
+CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL UNIQUE,
-    country VARCHAR(50),
-    founded_year INT,
-    logo_url VARCHAR(255)
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Table des Modèles (Models) - Le catalogue principal
-CREATE TABLE IF NOT EXISTS models (
+-- Table des véhicules
+CREATE TABLE IF NOT EXISTS vehicles (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    brand_id INT NOT NULL,
-    
-    -- Identité
-    name VARCHAR(100) NOT NULL,        -- ex: "911 GT3", "Model 3"
-    trim_level VARCHAR(100),           -- ex: "Performance", "Touring"
-    year INT NOT NULL,                 -- Année du modèle
-    
-    -- Moteur & Performance
-    engine_type VARCHAR(50),           -- ex: "Flat-6", "Dual Motor Electric"
-    fuel_type VARCHAR(50) NOT NULL,    -- ex: "Essence", "Electrique", "Hybride"
-    horsepower INT,                    -- en ch (hp)
-    torque INT,                        -- en Nm
-    zero_to_hundred DECIMAL(4,2),      -- 0-100 km/h en secondes
-    top_speed INT,                     -- km/h
-    drivetrain VARCHAR(20),            -- ex: "RWD", "AWD", "FWD"
-    transmission VARCHAR(50),          -- ex: "PDK 7-speed", "Manuelle 6"
-    
-    -- Consommation & Ecologie
-    consumption_mixed DECIMAL(5,2),    -- l/100km ou kWh/100km
-    co2_emissions INT,                 -- g/km
-    range_km INT,                      -- Autonomie (pour les électriques)
-    
-    -- Dimensions
-    weight_kg INT,                     -- Poids à vide
-    length_mm INT,
-    trunk_capacity_liters INT,         -- Volume coffre
-    
-    -- Commercial
-    base_price DECIMAL(12,2),          -- Prix de base
-    image_url VARCHAR(255),
-    
-    FOREIGN KEY (brand_id) REFERENCES brands(id) ON DELETE CASCADE
+    brand VARCHAR(100) NOT NULL,
+    model VARCHAR(100) NOT NULL,
+    year INT NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    image_path VARCHAR(255),
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Insertion de données fictives pour tester le comparateur
+-- Insertion d'un utilisateur de test
+-- Email: admin@test.com
+-- Mot de passe: admin123
+INSERT INTO users (email, password_hash) VALUES 
+('admin@test.com', '$2y$10$mDLuz/7.cZMh92jAE//hbe5X1263yCqtosjr6xGus2KcrWATgHvae');
 
--- 1. Ajout des marques
-INSERT INTO brands (name, country, founded_year) VALUES 
-('Porsche', 'Germany', 1931),
-('Tesla', 'USA', 2003),
-('Toyota', 'Japan', 1937),
-('Ferrari', 'Italy', 1939);
-
--- 2. Ajout des modèles
-
--- Porsche 911 GT3 (La sportive thermique)
-INSERT INTO models (brand_id, name, trim_level, year, engine_type, fuel_type, horsepower, torque, zero_to_hundred, top_speed, drivetrain, transmission, consumption_mixed, co2_emissions, weight_kg, length_mm, trunk_capacity_liters, base_price, image_url)
-VALUES (
-    1, '911', 'GT3', 2024, 
-    '4.0L Flat-6 NA', 'Essence', 
-    510, 470, 3.4, 318, 
-    'RWD', 'PDK 7-speed', 
-    13.0, 294, 
-    1435, 4573, 132, 
-    196500.00, 'https://example.com/gt3.jpg'
-);
-
--- Tesla Model S Plaid (Le monstre électrique)
-INSERT INTO models (brand_id, name, trim_level, year, engine_type, fuel_type, horsepower, torque, zero_to_hundred, top_speed, drivetrain, transmission, consumption_mixed, co2_emissions, range_km, weight_kg, length_mm, trunk_capacity_liters, base_price, image_url)
-VALUES (
-    2, 'Model S', 'Plaid', 2024, 
-    'Tri-Motor', 'Electrique', 
-    1020, 1420, 2.1, 322, 
-    'AWD', '1-speed', 
-    18.7, 0, 600, 
-    2162, 4970, 793, 
-    109990.00, 'https://example.com/plaid.jpg'
-);
-
--- Toyota Prius (L'hybride rationnelle)
-INSERT INTO models (brand_id, name, trim_level, year, engine_type, fuel_type, horsepower, torque, zero_to_hundred, top_speed, drivetrain, transmission, consumption_mixed, co2_emissions, weight_kg, length_mm, trunk_capacity_liters, base_price, image_url)
-VALUES (
-    3, 'Prius', 'PHEV 223', 2024, 
-    '2.0L I4 Hybrid', 'Hybride Rechargeable', 
-    223, 190, 6.7, 177, 
-    'FWD', 'e-CVT', 
-    0.7, 16, 
-    1570, 4600, 284, 
-    43900.00, 'https://example.com/prius.jpg'
-);
+-- Insertion de quelques véhicules de test
+INSERT INTO vehicles (brand, model, year, price, image_path, description) VALUES 
+('Porsche', '911 GT3', 2024, 196500.00, 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500', 'Voiture sportive emblématique avec moteur flat-6 de 510 ch'),
+('Tesla', 'Model S Plaid', 2024, 109990.00, 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=500', 'Berline électrique ultra-performante avec 1020 ch'),
+('Toyota', 'Prius', 2024, 43900.00, 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=500', 'Hybride rechargeable économique et écologique'),
+('Ferrari', 'F8 Tributo', 2024, 253000.00, 'https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=500', 'Supercar italienne avec moteur V8 biturbo de 720 ch'),
+('BMW', 'M3 Competition', 2024, 89900.00, 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=500', 'Berline sportive avec moteur 6 cylindres de 510 ch');
