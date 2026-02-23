@@ -384,7 +384,7 @@ try {
                     <tr>
                         <td class="row-label">Description</td>
                         <?php foreach ($vehicles as $vehicle): ?>
-                            <td>
+                            <td class="text-center">
                                 <!--
                                     ?? 'texte par défaut'
                                     
@@ -397,7 +397,55 @@ try {
                     </tr>
 
                     <!-- ═════════════════════════════════════════════════
-                         LIGNE 7 : ACTIONS (Boutons)
+                         LIGNES 7-11 : CARACTÉRISTIQUES DE PERFORMANCE
+                         ═════════════════════════════════════════════ -->
+                    <tr>
+                        <td class="row-label">Moteur</td>
+                        <?php foreach ($vehicles as $vehicle): ?>
+                            <td class="text-center">
+                                <?= !empty($vehicle['engine']) ? escape($vehicle['engine']) : '-' ?>
+                            </td>
+                        <?php endforeach; ?>
+                    </tr>
+
+                    <tr>
+                        <td class="row-label">Puissance</td>
+                        <?php foreach ($vehicles as $vehicle): ?>
+                            <td class="text-center">
+                                <?= !empty($vehicle['power']) ? escape($vehicle['power']) . ' ch' : '-' ?>
+                            </td>
+                        <?php endforeach; ?>
+                    </tr>
+
+                    <tr>
+                        <td class="row-label">Couple</td>
+                        <?php foreach ($vehicles as $vehicle): ?>
+                            <td class="text-center">
+                                <?= !empty($vehicle['torque']) ? escape($vehicle['torque']) . ' N.m' : '-' ?>
+                            </td>
+                        <?php endforeach; ?>
+                    </tr>
+
+                    <tr>
+                        <td class="row-label">Vitesse max</td>
+                        <?php foreach ($vehicles as $vehicle): ?>
+                            <td class="text-center">
+                                <?= !empty($vehicle['maxSpeed']) ? escape($vehicle['maxSpeed']) . ' km/h' : '-' ?>
+                            </td>
+                        <?php endforeach; ?>
+                    </tr>
+
+                    <tr>
+                        <td class="row-label">0-100 km/h</td>
+                        <?php foreach ($vehicles as $vehicle): ?>
+                            <td class="text-center">
+                                <?= !empty($vehicle['zeroTOhundred']) ? escape($vehicle['zeroTOhundred']) . ' s' : '-' ?>
+                            </td>
+                        <?php endforeach; ?>
+                    </tr>
+
+                    <!-- ═════════════════════════════════════════════════
+                         LIGNE 12 : ACTIONS (Boutons)
                          ═════════════════════════════════════════════ -->
                     <tr>
                         <td class="row-label">Actions</td>

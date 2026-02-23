@@ -5,6 +5,7 @@ services:
       - "8080:80"
     volumes:
       - ./src:/var/www/html
+      - "./db:/docker-entrypoint-initdb.d"
     environment:
       XDEBUG_MODE: debug
       XDEBUG_CONFIG: client_host=host.docker.internal client_port=9003 start_with_request=yes

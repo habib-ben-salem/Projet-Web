@@ -130,6 +130,26 @@ try {
                                     <td><?= escape($vehicle['year']) ?></td>
                                 </tr>
                                 <tr>
+                                    <th scope="row">Moteur :</th>
+                                    <td><?= !empty($vehicle['engine']) ? escape($vehicle['engine']) : 'Non spécifié' ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Puissance :</th>
+                                    <td><?= !empty($vehicle['power']) ? escape($vehicle['power']) . ' ch' : 'Non spécifié' ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Couple :</th>
+                                    <td><?= !empty($vehicle['torque']) ? escape($vehicle['torque']) . ' N.m' : 'Non spécifié' ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Vitesse max :</th>
+                                    <td><?= !empty($vehicle['maxSpeed']) ? escape($vehicle['maxSpeed']) . ' km/h' : 'Non spécifié' ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">0-100 km/h :</th>
+                                    <td><?= !empty($vehicle['zeroTOhundred']) ? escape($vehicle['zeroTOhundred']) . ' s' : 'Non spécifié' ?></td>
+                                </tr>
+                                <tr>
                                     <th scope="row">ID :</th>
                                     <td>#<?= escape($vehicle['id']) ?></td>
                                 </tr>

@@ -14,6 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $price = $_POST['price'] ?? '';
     $image_path = trim($_POST['image_path'] ?? '');
     $description = trim($_POST['description'] ?? '');
+    $engine = trim($_POST['engine'] ?? '');
+    $power = $_POST['power'] ?? '';
+    $torque = $_POST['torque'] ?? '';
+    $maxSpeed = $_POST['maxSpeed'] ?? '';
+    $zeroTOhundred = $_POST['zeroTOhundred'] ?? '';
     
     // Validation
     if (empty($brand) || empty($model) || empty($year) || empty($price)) {
@@ -26,8 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $pdo = getDbConnection();
             $stmt = $pdo->prepare('
-                INSERT INTO vehicles (brand, model, year, price, image_path, description) 
-                VALUES (?, ?, ?, ?, ?, ?)
+                INSERT INTO vehicles (brand, model, year, price, image_path, description, engine, power, torque, maxSpeed, zeroTOhundred) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ');
             $stmt->execute([
                 $brand,
@@ -35,7 +40,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 (int)$year,
                 (float)$price,
                 $image_path ?: null,
-                $description ?: null
+                $description ?: null,
+                $engine ?: null,
+                !empty($power) ? (int)$power : null,
+                !empty($torque) ? (int)$torque : null,
+                !empty($maxSpeed) ? (int)$maxSpeed : null,
+                !empty($zeroTOhundred) ? (float)$zeroTOhundred : null
             ]);
             
             $success = 'Véhicule ajouté avec succès !';
@@ -178,6 +188,68 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                           name="description" 
                                           rows="4" 
                                           placeholder="Décrivez les caractéristiques du véhicule..."><?= isset($_POST['description']) ? escape($_POST['description']) : '' ?></textarea>
+                            </div>
+
+                            <hr class="my-4">
+                            <h6 class="mb-3">Caractéristiques de performance (optionnel)</h6>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="engine" class="form-label">Type de moteur</label>
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="engine" 
+                                           name="engine" 
+                                           placeholder="Ex: Flat-6, Electric, V8 Biturbo..."
+                                           value="<?= isset($_POST['engine']) ? escape($_POST['engine']) : '' ?>">
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="power" class="form-label">Puissance (ch)</label>
+                                    <input type="number" 
+                                           class="form-control" 
+                                           id="power" 
+                                           name="power" 
+                                           min="0" 
+                                           placeholder="Ex: 510"
+                                           value="<?= isset($_POST['power']) ? escape($_POST['power']) : '' ?>">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="torque" class="form-label">Couple (N.m)</label>
+                                    <input type="number" 
+                                           class="form-control" 
+                                           id="torque" 
+                                           name="torque" 
+                                           min="0" 
+                                           placeholder="Ex: 470"
+                                           value="<?= isset($_POST['torque']) ? escape($_POST['torque']) : '' ?>">
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="maxSpeed" class="form-label">Vitesse max (km/h)</label>
+                                    <input type="number" 
+                                           class="form-control" 
+                                           id="maxSpeed" 
+                                           name="maxSpeed" 
+                                           min="0" 
+                                           placeholder="Ex: 320"
+                                           value="<?= isset($_POST['maxSpeed']) ? escape($_POST['maxSpeed']) : '' ?>">
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="zeroTOhundred" class="form-label">0-100 km/h (secondes)</label>
+                                <input type="number" 
+                                       class="form-control" 
+                                       id="zeroTOhundred" 
+                                       name="zeroTOhundred" 
+                                       step="0.1" 
+                                       min="0" 
+                                       placeholder="Ex: 3.4"
+                                       value="<?= isset($_POST['zeroTOhundred']) ? escape($_POST['zeroTOhundred']) : '' ?>">
                             </div>
 
                             <div class="d-flex gap-2">
