@@ -1,93 +1,268 @@
-# Dev Web Mobile
+# 🚗 Catalogue de Voitures - Projet Universitaire
 
+Un site web de gestion de catalogue de voitures créé avec **PHP**, **MySQL**, **Bootstrap** et **Docker**.
 
+---
 
-## Getting started
+## ✨ Fonctionnalités
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+### Pour tous les visiteurs :
+- 📋 Voir le catalogue complet des voitures
+- 🔍 Voir les détails d'une voiture
+- ⚖️ **Comparer plusieurs voitures côte à côte** (NOUVEAU !)
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+### Pour les utilisateurs connectés :
+- 🔐 Se connecter avec un compte
+- ➕ Ajouter des voitures au catalogue
+- 🗑️ Supprimer des voitures
+- 🚪 Se déconnecter
 
-## Add your files
+---
 
-* [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+## 🛠️ Technologies utilisées
+
+| Technologie | Description |
+|------------|-------------|
+| **PHP 8.x** | Langage backend pour la logique métier |
+| **MySQL 8.x** | Base de données relationnelle |
+| **PDO** | Interface sécurisée pour MySQL (protection contre injections SQL) |
+| **Docker** | Conteneurisation de l'application |
+| **Bootstrap 5** | Framework CSS pour le design responsive |
+| **JavaScript** | Interactivité côté client (comparaison de voitures) |
+
+---
+
+## 🚀 Installation et démarrage
+
+### Prérequis
+- [Docker Desktop](https://www.docker.com/products/docker-desktop) installé et en cours d'exécution
+- Un navigateur web (Chrome, Firefox, Edge...)
+
+### Étapes d'installation
+
+1. **Cloner ou télécharger le projet**
+   ```bash
+   cd dev-web-mobile
+   ```
+
+2. **Démarrer Docker Desktop**
+   - Ouvrez Docker Desktop et attendez qu'il soit prêt
+
+3. **Lancer les conteneurs**
+   ```bash
+   docker-compose up -d
+   ```
+   
+   Cette commande va :
+   - Créer 3 conteneurs (serveur web, MySQL, phpMyAdmin)
+   - Installer toutes les dépendances
+   - Créer la base de données avec des données de test
+
+4. **Attendre le démarrage**
+   - Attendez environ 30 secondes que MySQL s'initialise
+
+5. **Accéder au site**
+   - Ouvrez votre navigateur
+   - Allez sur : **http://localhost:8080/**
+
+---
+
+## 🌐 URLs importantes
+
+| Service | URL | Description |
+|---------|-----|-------------|
+| **Site web** | http://localhost:8080 | Page d'accueil du catalogue |
+| **phpMyAdmin** | http://localhost:8001 | Interface pour gérer la base de données |
+
+### Connexion à phpMyAdmin
+- **Serveur :** `db`
+- **Utilisateur :** `php_docker`
+- **Mot de passe :** `password`
+
+---
+
+## 👤 Compte de test
+
+Un compte administrateur est créé automatiquement :
+
+- **Email :** `admin@test.com`
+- **Mot de passe :** `admin123`
+
+Utilisez ce compte pour tester les fonctionnalités d'ajout et de suppression.
+
+---
+
+## 📁 Structure du projet
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/app3-iim/dev-web-mobile.git
-git branch -M main
-git push -uf origin main
+dev-web-mobile/
+│
+├── docker-compose.yml       # Configuration Docker (3 services)
+├── Dockerfile               # Image pour le serveur web PHP
+│
+├── db/                      # Scripts SQL
+│   ├── database.sql         # Création des tables + données de test
+│   └── users.sql            # (optionnel)
+│
+├── src/                     # Code source PHP
+│   ├── config.php           # ⭐ Fichier de configuration (fonctions utiles)
+│   ├── index.php            # Page d'accueil (liste des voitures)
+│   ├── login.php            # Page de connexion
+│   ├── logout.php           # Déconnexion
+│   ├── add.php              # Ajout d'une voiture
+│   ├── detail.php           # Détails d'une voiture
+│   ├── delete.php           # Suppression d'une voiture
+│   └── compare.php          # ⭐ Comparaison de voitures (NOUVEAU)
+│
+├── GUIDE_DEBUTANT.md        # 📚 Guide complet pour apprendre le projet
+└── README.md                # Ce fichier
 ```
 
-## Integrate with your tools
+**Note :** Tous les fichiers PHP sont **commentés en détail** pour faciliter l'apprentissage !
 
-* [Set up project integrations](https://gitlab.com/app3-iim/dev-web-mobile/-/settings/integrations)
+---
 
-## Collaborate with your team
+## 📚 Documentation pour débutants
 
-* [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+### 🎓 Vous êtes débutant en développement web ?
 
-## Test and Deploy
+Consultez le fichier **[GUIDE_DEBUTANT.md](GUIDE_DEBUTANT.md)** qui explique :
 
-Use the built-in continuous integration in GitLab.
+- 📖 Comment fonctionne le projet (architecture globale)
+- 🧩 Chaque technologie utilisée (PHP, MySQL, Docker, etc.)
+- 🔍 Ligne par ligne, ce que fait chaque fichier
+- 🛡️ Les concepts de sécurité (sessions, PDO, hachage...)
+- 🎓 Un glossaire de tous les termes techniques
+- ✅ Une checklist de compréhension
 
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+**Tous les fichiers PHP contiennent également des commentaires détaillés** qui expliquent chaque ligne de code.
 
-***
+---
 
-# Editing this README
+## 🆕 Nouvelle fonctionnalité : Comparaison de voitures
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+### Comment utiliser ?
 
-## Suggestions for a good README
+1. **Sur la page d'accueil**, cochez les voitures que vous voulez comparer (cases en haut à droite de chaque carte)
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+2. **Un bouton vert apparaît en bas à droite** indiquant le nombre de voitures sélectionnées
 
-## Name
-Choose a self-explaining name for your project.
+3. **Cliquez sur ce bouton** pour voir le tableau comparatif
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+4. **Le tableau affiche** côte à côte :
+   - Images
+   - Marques et modèles
+   - Années
+   - Prix
+   - Descriptions
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+---
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+## 🗄️ Base de données
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+### Tables créées automatiquement
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+**Table `users`** - Comptes utilisateurs
+```sql
+- id (INT, PRIMARY KEY, AUTO_INCREMENT)
+- email (VARCHAR(255), UNIQUE)
+- password_hash (VARCHAR(255))
+- created_at (TIMESTAMP)
+```
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+**Table `vehicles`** - Voitures du catalogue
+```sql
+- id (INT, PRIMARY KEY, AUTO_INCREMENT)
+- brand (VARCHAR(100))
+- model (VARCHAR(100))
+- year (INT)
+- price (DECIMAL(10,2))
+- image_path (VARCHAR(255), NULLABLE)
+- description (TEXT, NULLABLE)
+- created_at (TIMESTAMP)
+```
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+### Données de test
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+Le projet inclut **5 voitures de test** :
+1. Porsche 911 GT3
+2. Tesla Model S Plaid
+3. Toyota Prius
+4. Ferrari F8 Tributo
+5. BMW M3 Competition
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+---
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+## ⚙️ Commandes Docker utiles
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+```bash
+# Démarrer tous les conteneurs
+docker-compose up -d
 
-## License
-For open source projects, say how it is licensed.
+# Arrêter tous les conteneurs
+docker-compose down
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+# Voir les logs
+docker-compose logs -f
+
+# Redémarrer (après avoir modifié docker-compose.yml)
+docker-compose restart
+
+# Reconstruire les images (après avoir modifié Dockerfile)
+docker-compose up -d --build
+```
+
+---
+
+## 🔧 Développement
+
+### Modifier le code PHP
+- Les fichiers dans `src/` sont synchronisés avec le conteneur
+- Modifiez les fichiers et rafraîchissez simplement le navigateur
+- Pas besoin de redémarrer Docker !
+
+### Modifier les données
+- Utilisez phpMyAdmin : http://localhost:8001
+- Ou modifiez `db/database.sql` et recréez les conteneurs
+
+---
+
+## 🛡️ Sécurité
+
+Ce projet implémente plusieurs bonnes pratiques de sécurité :
+
+✅ **Requêtes préparées PDO** - Protection contre les injections SQL  
+✅ **Hachage bcrypt** - Les mots de passe ne sont jamais stockés en clair  
+✅ **Échappement HTML** - Protection contre les attaques XSS  
+✅ **Validation des données** - Vérification côté serveur  
+✅ **Sessions sécurisées** - Gestion des utilisateurs connectés  
+✅ **Contrôle d'accès** - Certaines pages nécessitent une connexion
+
+---
+
+## 📝 Notes importantes
+
+- Ce projet est à **but pédagogique**
+- Pour un site en production, il faudrait ajouter :
+  - HTTPS (SSL/TLS)
+  - Gestion d'erreurs plus robuste
+  - Upload d'images (actuellement URLs)
+  - Pagination du catalogue
+  - Recherche et filtres
+  - Tests unitaires
+
+---
+
+## 🎓 Apprentissage
+
+Ce projet est parfait pour apprendre :
+- Les bases de **PHP**
+- L'utilisation de **MySQL** avec **PDO**
+- La **conteneurisation** avec **Docker**
+- Les concepts de **sessions** et **authentification**
+- Le **design responsive** avec **Bootstrap**
+- Les interactions **JavaScript** de base
+
+**Consultez [GUIDE_DEBUTANT.md](GUIDE_DEBUTANT.md) pour une explication complète !**
+
+---
