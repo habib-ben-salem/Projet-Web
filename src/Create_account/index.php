@@ -1,3 +1,11 @@
+<?php
+// Inclure le fichier de configuration pour accéder aux fonctions
+require_once '../config.php';
+startSession();
+
+// Vérifier si l'utilisateur est admin
+$is_admin = isAdmin();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +19,7 @@
     <div class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-md-6 col-lg-4">
-                <!-- Carte avec un formulaire de connexion -->
+                <!-- Carte avec un formulaire de création de compte -->
                 <div class="card shadow">
                     <div class="card-body">
                         <h2 class="card-title text-center mb-4">Créer un compte</h2>
@@ -89,19 +97,27 @@
                                         <strong>Les mots de passe ne correspondent pas !</strong><br>
                                     </small>
                                 </div>
-                                <!-- 
-                                <div class="mb-3">
-                                    <input type="checkbox" id="remember" name="remember">    Case à cocher (checkbox)
-                                    
-                                    <label for="remember" class="checkbox-label">Se souvenir de moi</label>
-                                </div> 
-                                -->
+
+                                <?php if ($is_admin): ?>
+                                    <!-- Sélection du rôle (visible seulement pour les admins) -->
+                                    <div class="mb-3">
+                                        <label for="role" class="form-label">Type de compte</label>
+                                        <select id="role" name="role" class="form-select" required>
+                                            <option value="user">Utilisateur normal</option>
+                                            <option value="admin">Administrateur</option>
+                                        </select>
+                                        <small class="text-muted">
+                                            Sélectionnez le type de compte à créer
+                                        </small>
+                                    </div>
+                                <?php else: ?>
+                                    <!-- Champ caché pour les users normaux (toujours user) -->
+                                    <input type="hidden" name="role" value="user">
+                                <?php endif; ?>
+                                
                                 <div class="d-grid">
                                     <button type="submit" class="btn btn-primary">Créer un compte</button>
                                 </div>
-                                <!-- Bouton de soumission du formulaire:
-                                    - type="submit": envoie le formulaire au serveur quand cliqué
-                                    - Le JavaScript (script.js) intercepte ce bouton pour envoyer les données en JSON -->
                             </form>
                         </div>
                     </div>

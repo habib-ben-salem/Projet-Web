@@ -27,3 +27,7 @@ UPDATE vehicles SET maxSpeed = 322, zeroTOhundred = 2.1, engine = 'Electric', po
 UPDATE vehicles SET maxSpeed = 180, zeroTOhundred = 10.5, engine = 'Hybrid', power = 121, torque = 163 WHERE brand = 'Toyota' AND model = 'Prius';
 UPDATE vehicles SET maxSpeed = 340, zeroTOhundred = 2.9, engine = 'V8 Biturbo', power = 720, torque = 770 WHERE brand = 'Ferrari' AND model = 'F8 Tributo';
 UPDATE vehicles SET maxSpeed = 290, zeroTOhundred = 3.8, engine = 'Inline-6', power = 510, torque = 650 WHERE brand = 'BMW' AND model = 'M3 Competition';
+
+-- Ajouter une colonne 'role' à la table users
+ALTER TABLE users ADD COLUMN role VARCHAR(20) DEFAULT 'user';
+UPDATE users SET role = 'admin' WHERE email = 'admin@test.com';

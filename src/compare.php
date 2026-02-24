@@ -20,8 +20,16 @@
 // On inclut les fonctions utiles (connexion DB, sessions, etc.)
 require_once 'config.php';
 
-// On démarre la session (pour savoir si l'utilisateur est connecté)
+// Démarrer la session
 startSession();
+
+/*
+ * SÉCURITÉ : Vérifier que l'utilisateur est connecté
+ * 
+ * requireLogin() : Si pas connecté → redirige vers login.php
+ * Si connecté (user ou admin) → peut comparer
+ */
+requireLogin();
 
 
 // ═══════════════════════════════════════════════════════════════════
@@ -226,10 +234,15 @@ try {
                     <li class="nav-item">
                         <a class="nav-link" href="index.php">Catalogue</a>
                     </li>
-                    <?php if (isLoggedIn()): ?>
+                    <?php if (isAdmin()): ?>
                         <li class="nav-item">
                             <a class="nav-link" href="add.php">➕ Ajouter une voiture</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Create_account/index.php">👤 Créer un compte</a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if (isLoggedIn()): ?>
                         <li class="nav-item">
                             <span class="nav-link">👤 <?= escape($_SESSION['user_email']) ?></span>
                         </li>

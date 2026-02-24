@@ -205,7 +205,64 @@ function requireLogin() {
 
 
 // ═══════════════════════════════════════════════════════════════════
-// 6. FONCTION : escape()
+// 6. FONCTION : isAdmin()
+// ═══════════════════════════════════════════════════════════════════
+
+/**
+ * Vérifie si l'utilisateur connecté est un administrateur.
+ * 
+ * Comment on sait qu'un utilisateur est admin ?
+ * → Si $_SESSION['user_role'] existe et vaut 'admin'
+ * 
+ * Cette variable est créée dans login.php quand la connexion réussit.
+ * Elle provient de la colonne 'role' de la table users.
+ * 
+ * @return bool  true = admin, false = pas admin ou pas connecté
+ */
+function isAdmin() {
+    // D'abord, on s'assure que la session est démarrée
+    startSession();
+    
+    /*
+     * Vérifie deux conditions :
+     *   - L'utilisateur est connecté (isLoggedIn())
+     *   - Son rôle est 'admin'
+     * 
+     * Si les deux sont vraies → administrateur
+     * Sinon → utilisateur normal ou non connecté
+     */
+    return isLoggedIn() && isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin';
+}
+
+
+// ═══════════════════════════════════════════════════════════════════
+// 7. FONCTION : requireAdmin()
+// ═══════════════════════════════════════════════════════════════════
+
+/**
+ * Force l'utilisateur à être administrateur pour accéder à une page.
+ * 
+ * Si l'utilisateur N'EST PAS admin → redirige vers index.php
+ * Si l'utilisateur EST admin → ne fait rien (laisse passer)
+ * 
+ * Utilisé dans : add.php, delete.php (pages réservées aux admins)
+ */
+function requireAdmin() {
+    // Vérifie si l'utilisateur est admin
+    if (!isAdmin()) {
+        /*
+         * Redirige vers la page d'accueil
+         * (l'utilisateur ne peut pas faire cette action)
+         */
+        header('Location: /index.php');
+        exit; // Arrête complètement l'exécution du script
+    }
+    // Si admin → la fonction ne fait rien, le code continue normalement
+}
+
+
+// ═══════════════════════════════════════════════════════════════════
+// 8. FONCTION : escape()
 // ═══════════════════════════════════════════════════════════════════
 
 /**
@@ -249,7 +306,9 @@ function escape($data) {
  * Résumé des fonctions disponibles :
  *   - getDbConnection()  → Se connecter à MySQL
  *   - startSession()     → Démarrer une session
- *   - isLoggedIn()       → Vérifier si connecté
- *   - requireLogin()     → Forcer la connexion
+ *   - isLoggedIn()       → Vérifier si connecté (user ou admin)
+ *   - isAdmin()          → Vérifier si l'utilisateur est administrateur
+ *   - requireLogin()     → Forcer la connexion (user ou admin)
+ *   - requireAdmin()     → Forcer que l'utilisateur soit admin
  *   - escape()           → Sécuriser l'affichage HTML
  */

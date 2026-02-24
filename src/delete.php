@@ -21,12 +21,12 @@
 require_once 'config.php';
 
 /*
- * SÉCURITÉ 1 : Vérifier que l'utilisateur est connecté
+ * SÉCURITÉ 1 : Vérifier que l'utilisateur est administrateur
  * 
- * requireLogin() : Si pas connecté → redirige vers login.php
- * Si connecté → continue normalement
+ * requireAdmin() : Si pas admin → redirige vers index.php
+ * Si admin → continue normalement
  */
-requireLogin();
+requireAdmin();
 
 /*
  * SÉCURITÉ 2 : Vérifier que c'est bien une requête POST

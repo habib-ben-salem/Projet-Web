@@ -2,6 +2,9 @@
 // On importe les fonctions utiles depuis config.php
 require_once 'config.php';
 
+// Démarrer la session
+startSession();
+
 // Variable pour stocker les messages d'erreur
 $error = '';
 
@@ -23,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             // Préparation de la requête SQL pour chercher l'utilisateur par email
             // Le ? est un paramètre sécurisé (protection contre les injections SQL)
-            $stmt = $pdo->prepare('SELECT id, email, password_hash FROM users WHERE email = ?');
+            $stmt = $pdo->prepare('SELECT id, email, password_hash, role FROM users WHERE email = ?');
             
             // Exécution de la requête avec l'email fourni
             $stmt->execute([$email]);
@@ -41,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Ces données resteront disponibles tant que l'utilisateur est connecté
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_email'] = $user['email'];
+                $_SESSION['user_role'] = $user['role'] ?? 'user';  // 'user' ou 'admin'
                 
                 // Redirection vers la page d'accueil
                 header('Location: /index.php');

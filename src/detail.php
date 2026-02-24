@@ -59,10 +59,15 @@ try {
                     <li class="nav-item">
                         <a class="nav-link" href="index.php">Catalogue</a>
                     </li>
-                    <?php if (isLoggedIn()): ?>
+                    <?php if (isAdmin()): ?>
                         <li class="nav-item">
                             <a class="nav-link" href="add.php">➕ Ajouter une voiture</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Create_account/index.php">👤 Créer un compte</a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if (isLoggedIn()): ?>
                         <li class="nav-item">
                             <span class="nav-link">👤 <?= escape($_SESSION['user_email']) ?></span>
                         </li>
@@ -172,7 +177,7 @@ try {
                         ← Retour au catalogue
                     </a>
                     
-                    <?php if (isLoggedIn()): ?>
+                    <?php if (isAdmin()): ?>
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
                             🗑️ Supprimer
                         </button>
@@ -183,7 +188,7 @@ try {
     </main>
 
     <!-- Modal de confirmation de suppression -->
-    <?php if (isLoggedIn()): ?>
+    <?php if (isAdmin()): ?>
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
