@@ -7,8 +7,8 @@ RUN apt-get update \
  && pecl install xdebug \
  && docker-php-ext-enable xdebug
 
-# Activation du module rewrite d'Apache pour les URLs propres
-RUN a2enmod rewrite
+# Désactiver les MPM en conflit et activer prefork + rewrite
+RUN a2dismod mpm_event && a2enmod mpm_prefork && a2enmod rewrite
 
 # Copier le code source dans le conteneur (nécessaire pour Railway)
 COPY src/ /var/www/html/
