@@ -1,0 +1,16 @@
+INSERT INTO vehicles (brand, model, year, price, image_path, description, engine, power, torque, maxSpeed, zeroTOhundred) VALUES 
+('Lamborghini', 'Huracan EVO', 2024, 261274.00, 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=500', 'Supercar italienne avec moteur V10 atmospherique de 640 ch', 'V10', 640, 600, 325, 2.9),
+('Mercedes-Benz', 'AMG GT 63 S', 2024, 179900.00, 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=500', 'Berline coupe sportive avec moteur V8 biturbo', 'V8 Biturbo', 639, 900, 315, 3.2),
+('Audi', 'RS e-tron GT', 2024, 152900.00, 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=500', 'Gran Turismo electrique haute performance', 'Electric', 646, 830, 250, 3.3),
+('McLaren', '720S', 2024, 299000.00, 'https://images.unsplash.com/photo-1621135802920-133df287f89c?w=500', 'Supercar britannique avec moteur V8 biturbo de 720 ch', 'V8 Biturbo', 720, 770, 341, 2.8),
+('Chevrolet', 'Corvette Z06', 2024, 113900.00, 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=500', 'Sportive americaine a moteur central V8 atmospherique', 'V8', 670, 623, 312, 2.6),
+('Ford', 'Mustang GT', 2024, 55900.00, 'https://images.unsplash.com/photo-1584345604476-8ec5f82d661f?w=500', 'Muscle car iconique americaine avec moteur V8 Coyote', 'V8', 480, 569, 250, 4.3),
+('Nissan', 'GT-R Nismo', 2024, 220000.00, 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=500', 'La legendaire Godzilla japonaise version ultime', 'V6 Biturbo', 600, 652, 315, 2.5),
+('Aston Martin', 'DB12', 2024, 245000.00, 'https://images.unsplash.com/photo-1596906098867-c6684f0be27a?w=500', 'Grand Tourisme britannique elegant et puissant', 'V8 Biturbo', 680, 800, 325, 3.5),
+('Maserati', 'MC20', 2024, 216000.00, 'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=500', 'Supercar italienne avec moteur V6 Nettuno biturbo', 'V6 Biturbo', 630, 730, 325, 2.9),
+('Bugatti', 'Chiron Sport', 2024, 3300000.00, 'https://images.unsplash.com/photo-1600712242805-5f78671b24da?w=500', 'Hypercar ultime avec moteur W16 quadriturbo de 1500 ch', 'W16 Quadriturbo', 1500, 1600, 420, 2.4),
+('Volkswagen', 'Golf GTI', 2024, 39900.00, 'https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=500', 'Compacte sportive accessible et polyvalente', 'Inline-4 Turbo', 265, 370, 250, 5.9),
+('Honda', 'Civic Type R', 2024, 44900.00, 'https://images.unsplash.com/photo-1679239872453-d2e12d8dd162?w=500', 'Compacte sportive japonaise a traction avant extreme', 'Inline-4 Turbo', 329, 420, 275, 5.4),
+('Hyundai', 'Ioniq 5 N', 2024, 67900.00, 'https://images.unsplash.com/photo-1706299748792-1e34e2899b63?w=500', 'SUV electrique sportif avec boost temporaire', 'Electric', 641, 770, 260, 3.4),
+('Peugeot', '508 PSE', 2024, 54900.00, 'https://images.unsplash.com/photo-1609289061627-801e6dff3fcc?w=500', 'Berline hybride rechargeable sportive francaise', 'Hybrid', 360, 520, 250, 5.2),
+('Renault', 'Alpine A110 S', 2024, 72900.00, 'https://images.unsplash.com/photo-1626668011687-8a114cf5a34c?w=500', 'Sportive francaise legere et agile', 'Inline-4 Turbo', 300, 340, 275, 4.2);
