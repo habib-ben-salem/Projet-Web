@@ -24,17 +24,17 @@
  */
 
 // DB_HOST : Nom du serveur MySQL
-// Dans Docker, le service MySQL s'appelle 'db' (voir docker-compose.yml)
-define('DB_HOST', 'db');
+// En local Docker = 'db', sur Railway = variable d'environnement MYSQLHOST
+define('DB_HOST', getenv('MYSQLHOST') ?: 'db');
 
 // DB_NAME : Nom de la base de données qu'on utilise
-define('DB_NAME', 'appinfo');
+define('DB_NAME', getenv('MYSQLDATABASE') ?: 'appinfo');
 
 // DB_USER : Nom d'utilisateur pour se connecter à MySQL
-define('DB_USER', 'php_docker');
+define('DB_USER', getenv('MYSQLUSER') ?: 'php_docker');
 
 // DB_PASS : Mot de passe pour se connecter à MySQL
-define('DB_PASS', 'password');
+define('DB_PASS', getenv('MYSQLPASSWORD') ?: 'password');
 
 
 // ═══════════════════════════════════════════════════════════════════

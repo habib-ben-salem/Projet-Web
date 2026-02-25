@@ -9,3 +9,8 @@ RUN apt-get update \
 
 # Activation du module rewrite d'Apache pour les URLs propres
 RUN a2enmod rewrite
+
+# Copier le code source dans le conteneur (nécessaire pour Railway)
+COPY src/ /var/www/html/
+
+EXPOSE 80
