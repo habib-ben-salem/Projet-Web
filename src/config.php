@@ -23,22 +23,32 @@
  * le projet, et elles ne doivent JAMAIS changer pendant l'exécution.
  */
 
+// Fonction pour lire une variable d'environnement (compatible tous serveurs)
+function env($key, $default = null) {
+    $val = getenv($key);
+    if ($val !== false) return $val;
+    if (isset($_ENV[$key])) return $_ENV[$key];
+    if (isset($_SERVER[$key])) return $_SERVER[$key];
+    return $default;
+}
+
 // DB_HOST : Nom du serveur MySQL
 // Détection automatique : Railway (MYSQL_URL), ou variables séparées, ou Docker local
-if (getenv('MYSQL_URL')) {
+$mysql_url = env('MYSQL_URL');
+if ($mysql_url) {
     // Railway fournit MYSQL_URL = mysql://user:pass@host:port/dbname
-    $url = parse_url(getenv('MYSQL_URL'));
+    $url = parse_url($mysql_url);
     define('DB_HOST', $url['host']);
     define('DB_NAME', ltrim($url['path'], '/'));
     define('DB_USER', $url['user']);
     define('DB_PASS', $url['pass']);
     define('DB_PORT', $url['port'] ?? 3306);
 } else {
-    define('DB_HOST', getenv('MYSQLHOST') ?: 'db');
-    define('DB_NAME', getenv('MYSQLDATABASE') ?: 'appinfo');
-    define('DB_USER', getenv('MYSQLUSER') ?: 'php_docker');
-    define('DB_PASS', getenv('MYSQLPASSWORD') ?: 'password');
-    define('DB_PORT', getenv('MYSQLPORT') ?: 3306);
+    define('DB_HOST', env('MYSQLHOST', 'db'));
+    define('DB_NAME', env('MYSQLDATABASE', 'appinfo'));
+    define('DB_USER', env('MYSQLUSER', 'php_docker'));
+    define('DB_PASS', env('MYSQLPASSWORD', 'password'));
+    define('DB_PORT', env('MYSQLPORT', 3306));
 }
 
 
