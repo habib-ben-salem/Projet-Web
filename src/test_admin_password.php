@@ -5,8 +5,8 @@
 
 require_once 'config.php';
 
-$email = 'admin@tondomaine.com'; // <-- Mets ici l'email admin à tester
-$password_test = 'ton_mot_de_passe'; // <-- Mets ici le mot de passe à tester
+$email = 'admin@test.com'; // <-- Mets ici l'email admin à tester
+$password_test = 'admin123'; // <-- Mets ici le mot de passe à tester
 
 try {
     $pdo = getDbConnection();
