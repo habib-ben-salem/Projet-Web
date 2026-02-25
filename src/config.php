@@ -24,17 +24,22 @@
  */
 
 // DB_HOST : Nom du serveur MySQL
-// En local Docker = 'db', sur Railway = variable d'environnement MYSQLHOST
-define('DB_HOST', getenv('MYSQLHOST') ?: 'db');
-
-// DB_NAME : Nom de la base de données qu'on utilise
-define('DB_NAME', getenv('MYSQLDATABASE') ?: 'appinfo');
-
-// DB_USER : Nom d'utilisateur pour se connecter à MySQL
-define('DB_USER', getenv('MYSQLUSER') ?: 'php_docker');
-
-// DB_PASS : Mot de passe pour se connecter à MySQL
-define('DB_PASS', getenv('MYSQLPASSWORD') ?: 'password');
+// Détection automatique : Railway (MYSQL_URL), ou variables séparées, ou Docker local
+if (getenv('MYSQL_URL')) {
+    // Railway fournit MYSQL_URL = mysql://user:pass@host:port/dbname
+    $url = parse_url(getenv('MYSQL_URL'));
+    define('DB_HOST', $url['host']);
+    define('DB_NAME', ltrim($url['path'], '/'));
+    define('DB_USER', $url['user']);
+    define('DB_PASS', $url['pass']);
+    define('DB_PORT', $url['port'] ?? 3306);
+} else {
+    define('DB_HOST', getenv('MYSQLHOST') ?: 'db');
+    define('DB_NAME', getenv('MYSQLDATABASE') ?: 'appinfo');
+    define('DB_USER', getenv('MYSQLUSER') ?: 'php_docker');
+    define('DB_PASS', getenv('MYSQLPASSWORD') ?: 'password');
+    define('DB_PORT', getenv('MYSQLPORT') ?: 3306);
+}
 
 
 // ═══════════════════════════════════════════════════════════════════
@@ -60,7 +65,7 @@ function getDbConnection() {
          * Exemple résultat :
          * "mysql:host=db;dbname=appinfo;charset=utf8mb4"
          */
-        $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
+        $dsn = "mysql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME . ";charset=utf8mb4";
         
         /*
          * Options de configuration PDO pour la sécurité et les bonnes pratiques
