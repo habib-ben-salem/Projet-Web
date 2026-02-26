@@ -172,10 +172,15 @@ try {
                     <li class="nav-item">
                         <a class="nav-link active" href="index.php">Catalogue</a>
                     </li>
-                    <?php if (isLoggedIn()): ?>
+                    <?php if (isAdmin()): ?>
                         <li class="nav-item">
                             <a class="nav-link" href="add.php">➕ Ajouter une voiture</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Create_account/index.php">👤 Créer un compte</a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if (isLoggedIn()): ?>
                         <li class="nav-item">
                             <span class="nav-link">👤 <?= escape($_SESSION['user_email']) ?></span>
                         </li>

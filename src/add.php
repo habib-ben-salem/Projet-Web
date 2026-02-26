@@ -1,8 +1,11 @@
 <?php
 require_once 'config.php';
 
-// Vérifier que l'utilisateur est connecté
-requireLogin();
+// Démarrer la session
+startSession();
+
+// Vérifier que l'utilisateur est administrateur
+requireAdmin();
 
 $error = '';
 $success = '';
@@ -83,6 +86,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="add.php">➕ Ajouter une voiture</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Create_account/index.php">👤 Créer un compte</a>
                     </li>
                     <li class="nav-item">
                         <span class="nav-link">👤 <?= escape($_SESSION['user_email']) ?></span>

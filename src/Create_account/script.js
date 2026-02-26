@@ -1,5 +1,5 @@
 
-function query_data_from_base(email,password,confirme_password){
+function query_data_from_base(email,password,confirme_password,role){
     fetch('/Create_account/create_account.php', {
         method: 'POST',
         headers: {
@@ -9,6 +9,7 @@ function query_data_from_base(email,password,confirme_password){
             email: email,
             password: password,
             confirme_password: confirme_password,
+            role: role
         })
     })
     .then(response => response.json())
@@ -50,6 +51,8 @@ document.getElementById('loginForm').addEventListener('submit', function(elem) {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const confirme_password = document.getElementById('confirme_password').value;
+    const roleElement = document.getElementById('role');
+    const role = roleElement ? roleElement.value : 'user';  // Par défaut 'user'
     
     // ===== VALIDATION BASIQUE =====
     if (!email || !password || !confirme_password) {
@@ -59,10 +62,11 @@ document.getElementById('loginForm').addEventListener('submit', function(elem) {
     
     // ===== AFFICHAGE DANS LA CONSOLE (pour déboguer) =====
     console.log('Email envoyé :', email);
+    console.log('Rôle envoyé :', role);
     console.log('Requête fetch lancée vers /login/authenticate.php');
     
     // ===== ENVOI DES DONNÉES AU SERVEUR =====
-    query_data_from_base(email,password,confirme_password);
+    query_data_from_base(email,password,confirme_password,role);
     
 });
 

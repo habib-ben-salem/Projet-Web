@@ -1,0 +1,15 @@
+UPDATE vehicles SET image_path = 'https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=500' WHERE brand = 'Lamborghini';
+UPDATE vehicles SET image_path = 'https://images.unsplash.com/photo-1511918984145-48de785d4c4e?w=500' WHERE brand = 'Mercedes-Benz';
+UPDATE vehicles SET image_path = 'https://images.unsplash.com/photo-1617531653332-6e6e1b8b8b8b?w=500' WHERE brand = 'Audi';
+UPDATE vehicles SET image_path = 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=500' WHERE brand = 'McLaren';
+UPDATE vehicles SET image_path = 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=500' WHERE brand = 'Chevrolet';
+UPDATE vehicles SET image_path = 'https://www.leblogauto.com/wp-content/uploads/2025/01/2025-mustang-gtd-spirit-of-america_03-4096x2366-1-1840x1035.jpg' WHERE brand = 'Ford';
+UPDATE vehicles SET image_path = 'https://images.unsplash.com/photo-1461632830798-3adb3034e4c8?w=500' WHERE brand = 'Nissan';
+UPDATE vehicles SET image_path = 'https://images.unsplash.com/photo-1462392246754-28dfa2df8e6b?w=500' WHERE brand = 'Aston Martin';
+UPDATE vehicles SET image_path = 'https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=500' WHERE brand = 'Maserati';
+UPDATE vehicles SET image_path = 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=500' WHERE brand = 'Bugatti';
+UPDATE vehicles SET image_path = 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=500' WHERE brand = 'Volkswagen';
+UPDATE vehicles SET image_path = 'https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=500' WHERE brand = 'Honda';
+UPDATE vehicles SET image_path = 'https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=500' WHERE brand = 'Hyundai';
+UPDATE vehicles SET image_path = 'https://images.unsplash.com/photo-1511918984145-48de785d4c4e?w=500' WHERE brand = 'Peugeot';
+UPDATE vehicles SET image_path = 'https://images.unsplash.com/photo-1511918984145-48de785d4c4e?w=500' WHERE brand = 'Renault';

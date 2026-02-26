@@ -1,12 +1,3 @@
-
-
--- Insertion d'un utilisateur de test
--- Email: admin@test.com
--- Mot de passe: admin123
-INSERT INTO users (email, password_hash, role) VALUES 
-('admin@test.com', '$2y$10$mDLuz/7.cZMh92jAE//hbe5X1263yCqtosjr6xGus2KcrWATgHvae', 'admin');
-
--- Insertion de quelques véhicules de test avec toutes les caractéristiques
 INSERT INTO vehicles (brand, model, year, price, image_path, description, engine, power, torque, maxSpeed, zeroTOhundred) VALUES 
 ('Porsche', '911 GT3', 2024, 196500.00, 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500', 'Voiture sportive emblématique avec moteur flat-6 de 510 ch', 'Flat-6', 510, 470, 320, 3.4),
 ('Tesla', 'Model S Plaid', 2024, 109990.00, 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=500', 'Berline électrique ultra-performante avec 1020 ch', 'Electric', 1020, 1050, 322, 2.1),

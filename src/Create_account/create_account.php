@@ -1,6 +1,10 @@
 <?php
 // ===== SCRIPT D'INSERTION D'UN UTILISATEUR =====
 
+// Inclure le fichier de configuration pour les fonctions de sécurité
+require_once '../config.php';
+startSession();
+
 // ===== ÉTAPE 1 : RÉCUPÉRER LES DONNÉES ENVOYÉES PAR LE FORMULAIRE =====
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
@@ -9,6 +13,7 @@ $data = json_decode($input, true);
 $email = $data['email'] ?? null;
 $password = $data['password'] ?? null;
 $confirme_password = $data['confirme_password'] ?? null;
+$role = $data['role'] ?? 'user';  // Par défaut 'user', peut être 'admin'
 
 // Vérification rapide : tous les champs obligatoires
 if (!$email || !$password || !$confirme_password) {
@@ -24,34 +29,32 @@ if ($password !== $confirme_password) {
     exit();
 }
 
+/*
+ * SÉCURITÉ : Vérifier les droits pour créer un compte admin
+ * 
+ * Seuls les administrateurs peuvent créer d'autres comptes administrateur.
+ * Les utilisateurs normaux ne peuvent créer que des comptes 'user'
+ */
+if ($role === 'admin' && !isAdmin()) {
+    http_response_code(403);  // 403 = Forbidden (accès interdit)
+    echo json_encode(['success' => false, 'message' => 'Vous n\'avez pas les droits pour créer un compte administrateur']);
+    exit();
+}
+
 // ===== ÉTAPE 2 : SE CONNECTER À LA BASE DE DONNÉES =====
 
-// Paramètres de connexion
-$serveur = 'db';
-$utilisateur = 'php_docker';
-$motdepasse = 'password';
-$base = 'appinfo';
-
 try {
-    // Se connecter à la base de données
-    $mysqli = new mysqli($serveur, $utilisateur, $motdepasse, $base);
-    
-    if ($mysqli->connect_error) {
-        throw new Exception("Erreur de connexion: " . $mysqli->connect_error);
-    }
-    
-    $mysqli->set_charset("utf8");
+    // Se connecter à la base de données en utilisant la fonction config.php
+    $pdo = getDbConnection();
 
     // ===== ÉTAPE 3 : VÉRIFIER SI L'EMAIL EXISTE DEJA =====
     
     $query = "SELECT email FROM users WHERE email = ?";
-    $stmt = $mysqli->prepare($query);
-    $stmt->bind_param('s', $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    // Si num_rows > 0, c'est qu'on a trouvé un utilisateur avec cet email
-    if ($result->num_rows > 0) {
+    $stmt = $pdo->prepare($query);
+    $stmt->execute([$email]);
+    
+    // Si on trouve un résultat, l'email existe déjà
+    if ($stmt->fetch()) {
         http_response_code(409);  // 409 = Conflit
         echo json_encode(['success' => false, 'message' => 'Cet email existe déjà']);
         exit();
@@ -62,18 +65,12 @@ try {
     // Hasher le mot de passe avec password_hash (bcrypt) par l'algo PASSWORD_BCRYPT
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
     
-    // Préparer la requête d'insertion
-    $query = "INSERT INTO users (email, password_hash) VALUES (?,?)";
-    $stmt = $mysqli->prepare($query);
-    if (!$stmt) {
-        throw new Exception("Erreur de préparation: " . $mysqli->error);
-    }
-    // bind_param('ss', ...) = 2 paramètres string pour email et password_hash
-    $stmt->bind_param('ss', $email, $hashed_password);
+    // Préparer la requête d'insertion (avec le champ 'role')
+    $query = "INSERT INTO users (email, password_hash, role) VALUES (?, ?, ?)";
+    $stmt = $pdo->prepare($query);
     
-    if (!$stmt->execute()) {
-        throw new Exception("Erreur lors de l'insertion: " . $stmt->error);
-    }
+    // Exécuter avec l'email, le mot de passe hashé, et le rôle
+    $stmt->execute([$email, $hashed_password, $role]);
     
     // ===== ÉTAPE 5 : RETOURNER LE SUCCÈS =====
     http_response_code(201);  // 201 = Created (créé avec succès)
@@ -82,13 +79,11 @@ try {
         'message' => 'Compte créé avec succès !',
         'user' => [
             'email' => $email,
+            'role' => $role
         ]
     ]);
     
-    $stmt->close();
-    $mysqli->close();
-    
-} catch (Exception $e) {
+} catch (PDOException $e) {
     http_response_code(500);
     echo json_encode(['success' => false, 'message' => 'Erreur serveur: ' . $e->getMessage()]);
 }
