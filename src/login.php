@@ -108,13 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         
                         <!-- Affichage des identifiants de test pour faciliter les tests -->
-                        <div class="mt-4 p-3 bg-light rounded">
-                            <small class="text-muted">
-                                <strong>Compte de test :</strong><br>
-                                Email: admin@test.com<br>
-                                Mot de passe: admin123
-                            </small>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
