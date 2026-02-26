@@ -266,5 +266,3 @@ Ce projet est parfait pour apprendre :
 **Consultez [GUIDE_DEBUTANT.md](GUIDE_DEBUTANT.md) pour une explication complète !**
 
 ---
-
-**Projet Universitaire 2026** - Bon apprentissage ! 🚀
