@@ -111,14 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <a href="/Create_account/index.php" class="text-decoration-none">Creer un compte 🠖</a>
                         </div>
                         
-                        <!-- Affichage des identifiants de test pour faciliter les tests -->
-                        <div class="mt-4 p-3 bg-light rounded">
-                            <small class="text-muted">
-                                <strong>Compte de test :</strong><br>
-                                Email: admin@test.com<br>
-                                Mot de passe: admin123
-                            </small>
-                        </div>
+                    
                     </div>
                 </div>
             </div>
